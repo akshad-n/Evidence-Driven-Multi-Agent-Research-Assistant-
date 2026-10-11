@@ -5,6 +5,7 @@
 [![ChromaDB](https://img.shields.io/badge/VectorStore-ChromaDB-green.svg)](https://www.trychroma.com/)
 [![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-red.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Deploy on Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=akshad-n/Evidence-Driven-Multi-Agent-Research-Assistant-&branch=main&mainModule=app.py)
 
 Evidentia AI is an autonomous, evidence-driven multi-agent research assistant designed to automate literature reviews, empirical extraction, contradiction detection, and research gap identification.
 
@@ -176,6 +177,8 @@ DEMO_MODE=false
 ## 5. How to Run
 
 ### Option A: Launch Streamlit Web Application
+- **Direct 1-Click Streamlit Cloud Deploy**: [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=akshad-n/Evidence-Driven-Multi-Agent-Research-Assistant-&branch=main&mainModule=app.py)
+- **Local Run**:
 ```bash
 streamlit run app.py
 ```
