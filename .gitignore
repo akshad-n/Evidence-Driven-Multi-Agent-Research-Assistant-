@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Evidentia data and secrets
+.env
+data/uploads/*
+!data/uploads/.gitkeep
+chroma_db/
+evidentia.db
+*.sqlite3
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+test_chroma_db/
+
+# Binaries
+cloudflared.exe

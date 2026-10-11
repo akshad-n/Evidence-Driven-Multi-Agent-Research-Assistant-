@@ -1,0 +1,61 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: evidentia-ai-app
+    ports:
+      - "8501:8501"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - SEMANTIC_SCHOLAR_API_KEY=${SEMANTIC_SCHOLAR_API_KEY:-}
+      - MODEL_NAME=${MODEL_NAME:-gpt-4o-mini}
+      - DEMO_MODE=${DEMO_MODE:-true}
+      - DATABASE_URL=postgresql://evidentia_user:evidentia_password@db:5432/evidentia_db
+      - CHROMA_PERSIST_DIRECTORY=/app/chroma_db
+    volumes:
+      - ./data:/app/data
+      - chroma_data:/app/chroma_db
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: evidentia-ai-api
+    command: ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - DEMO_MODE=${DEMO_MODE:-true}
+      - DATABASE_URL=postgresql://evidentia_user:evidentia_password@db:5432/evidentia_db
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    container_name: evidentia-ai-db
+    environment:
+      POSTGRES_USER: evidentia_user
+      POSTGRES_PASSWORD: evidentia_password
+      POSTGRES_DB: evidentia_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U evidentia_user -d evidentia_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  chroma_data:
